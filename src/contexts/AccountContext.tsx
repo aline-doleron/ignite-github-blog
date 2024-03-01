@@ -9,9 +9,20 @@ interface AccountUser {
     followers: number;
 }
 
+interface IssueType {
+    body: string;
+    comments: number;
+    number: number;
+    title: string;
+    updated_at: string;
+    user: string;
+}
+
 interface AccountType {
     userData?: AccountUser;
-    getAccountUserData: (name: string) => Promise<void>
+    issues: IssueType[];
+    getAccountUserData: (name: string) => Promise<void>;
+    getIssues: (query: string) => Promise<void>;
 }
 
 export const AccountContext = createContext({} as AccountType)
@@ -23,6 +34,7 @@ interface AccountProviderProps {
 
 export function AccountProvider({ children }: AccountProviderProps) {
     const [userData, setUserData] = useState<AccountUser>();
+    const [issues, setIssues] = useState<IssueType[]>([]);
 
     const getAccountUserData = useCallback(async (username: string) => {
         const response = await api.get(`users/${username}`);
@@ -37,8 +49,19 @@ export function AccountProvider({ children }: AccountProviderProps) {
         });
     }, [])
 
+    const getIssues = useCallback(async (query?: string) => {
+        const response = await api.get(`/search/issues?q=${query ? query : ''}%20repo:aline-doleron/ignite-github-blog`);
+
+        setIssues(response.data.items);
+    }, [])
+
     useEffect(() => {
         getAccountUserData('aline-doleron')
+    }, [getAccountUserData])
+
+
+    useEffect(() => {
+        getIssues()
     }, [getAccountUserData])
 
 
@@ -46,7 +69,9 @@ export function AccountProvider({ children }: AccountProviderProps) {
         <AccountContext.Provider
             value={{
                 userData,
-                getAccountUserData
+                issues,
+                getAccountUserData,
+                getIssues
             }}>
             {children}
         </AccountContext.Provider>

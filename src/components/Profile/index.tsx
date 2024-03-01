@@ -1,4 +1,5 @@
-import { useContext } from "react";
+
+import React from "react";
 import {
     ProfileContainer,
     ProfileData,
@@ -7,27 +8,34 @@ import {
     ProfilePicture,
     ProfileTitle
 } from "./styles";
-import { AccountContext } from "../../contexts/AccountContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faBuilding, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 
-export function Profile() {
-    const { userData } = useContext(AccountContext);
+interface ProfileType {
+    picture: string,
+    title: string,
+    description: string,
+    login: string,
+    followers: number,
 
-    const { name, avatarUrl, bio, login, followers } = userData ?? {};
+}
 
+export function Profile({ data }: { data: ProfileType }) {
 
     return (
         <ProfileContainer>
-            <ProfilePicture src={avatarUrl} />
-            < ProfileInfo >
-                <ProfileTitle >
-                    <span>{name}</span>
+            <ProfilePicture src={data.picture} />
+            <ProfileInfo>
+                <ProfileTitle>
+                    {data.title && <span>{data.title}</span>}
                     <a href="#">github</a>
                 </ProfileTitle>
-                <ProfileDescription>{bio}</ProfileDescription>
+                <ProfileDescription>{data.description}</ProfileDescription>
                 <ProfileData>
-                    <span>{login}</span>
-                    <span>Rocketseat</span>
-                    <span>{followers} seguidores</span>
+                    <span><FontAwesomeIcon icon={faGithub} />{data.login}</span>
+                    <span><FontAwesomeIcon icon={faBuilding} />Rocketseat</span>
+                    <span><FontAwesomeIcon icon={faUserGroup} />{data.followers} seguidores</span>
                 </ProfileData>
             </ProfileInfo>
         </ProfileContainer >

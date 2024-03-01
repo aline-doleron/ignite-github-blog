@@ -1,18 +1,26 @@
-import { Header } from "../../components/Header";
+import { useContext } from "react";
 import { Profile } from "../../components/Profile";
 import { Publications } from "../../components/Publications";
-import { Footer, HomeContainer, Main } from "./styles";
+import { Main } from "./styles";
+import { AccountContext } from "../../contexts/AccountContext";
 
 export function Home() {
-    return (
-        <HomeContainer>
-            <Header />
-            <Main>
-                <Profile />
-                <Publications />
-            </Main>
-            <Footer />
+    const { userData } = useContext(AccountContext);
 
-        </HomeContainer>
+    const { name, avatarUrl, bio, login, followers } = userData ?? {};
+
+    const data = {
+        picture: avatarUrl ?? '',
+        title: name ?? '',
+        description: bio ?? '',
+        login: login ?? '',
+        followers: followers ?? 0,
+    }
+
+    return (
+        <Main>
+            <Profile data={data} />
+            <Publications />
+        </Main>
     )
 }

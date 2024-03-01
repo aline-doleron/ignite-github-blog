@@ -70,23 +70,3 @@ export const PostsContainer = styled.section`
         line-height: 160%;
     }
 `
-
-export const Post = styled.div`
-    background-color: ${(props) => props.theme['base-post']};
-    border-radius: 10px;
-    padding: 2rem;
-    height: 16.25rem;
-    width: 26rem;
-    overflow: hidden;
-    margin-top: 2rem;
-
-    p {
-        margin-top: 1.25rem;
-        display: -webkit-box; 
-        -webkit-box-orient: vertical; 
-        -webkit-line-clamp: 4; 
-        overflow: hidden; 
-        text-overflow: ellipsis; 
-    }
-`
-

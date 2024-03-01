@@ -47,4 +47,8 @@ export const ProfileDescription = styled.span`
 export const ProfileData = styled.span`
     display: flex;
     gap: 1.5rem;
+
+    svg {
+        padding-right: 0.5rem;
+    }
 `
