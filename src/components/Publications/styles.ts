@@ -54,6 +54,7 @@ export const PostsContainer = styled.section`
         align-content: center;
         align-items: flex-start;
         justify-content: space-between;
+        align-items: baseline;
     }
 
     h1 {
@@ -62,6 +63,7 @@ export const PostsContainer = styled.section`
         font-size: 1.25rem;
         line-height: 160%;
         max-width: 16rem;
+        margin-right: 1rem;
     }
 
     span {

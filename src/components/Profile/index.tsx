@@ -6,11 +6,12 @@ import {
     ProfileDescription,
     ProfileInfo,
     ProfilePicture,
-    ProfileTitle
+    ProfileTitle,
+    GithubLink
 } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faBuilding, faUserGroup } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare, faBuilding, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 
 interface ProfileType {
     picture: string,
@@ -29,7 +30,10 @@ export function Profile({ data }: { data: ProfileType }) {
             <ProfileInfo>
                 <ProfileTitle>
                     {data.title && <span>{data.title}</span>}
-                    <a href="#">github</a>
+                    <GithubLink><a href="https://github.com/aline-doleron" target="_blank">GITHUB</a>
+                        <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                    </GithubLink>
+
                 </ProfileTitle>
                 <ProfileDescription>{data.description}</ProfileDescription>
                 <ProfileData>

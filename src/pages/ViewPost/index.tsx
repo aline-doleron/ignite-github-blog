@@ -4,16 +4,10 @@ import { api } from "../../lib/axios";
 import { useEffect, useState } from "react";
 import { Publication, PublicationType } from "../../components/Publications/Publication";
 import { PublicationBody } from "./styles";
+import ReactMarkdown from "react-markdown";
 
 export function ViewPost() {
-    const [postData, setPostData] = useState<PublicationType>({
-        title: '',
-        description: '',
-        htmlUrl: '',
-        login: '',
-        updatedAt: '',
-        comments: 0
-    });
+    const [postData, setPostData] = useState<PublicationType>();
     const params = useParams();
 
     const { issueNumber } = params;
@@ -37,14 +31,24 @@ export function ViewPost() {
 
     useEffect(() => {
         getIssue(issueNumber as string);
-    }, [])
+    }, [issueNumber])
 
-    return (
-        <Main>
-            <Publication data={postData} />
-            <PublicationBody>{postData.description}</PublicationBody>
-        </Main>
-    )
+    if (!postData) {
+        return "...loading..."
+    } else {
+        return (
+            <Main>
+                <Publication data={postData} />
+
+                <PublicationBody>
+                    <ReactMarkdown children={postData.description} />
+                </PublicationBody>
+
+            </Main>
+        )
+    }
+
+
 }
 
 

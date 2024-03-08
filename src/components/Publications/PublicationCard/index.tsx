@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { PostBody } from "./styles";
+import { formatDistance } from 'date-fns'
+import localeBr from 'date-fns/locale/pt-BR';
 
 
 interface IssueType {
@@ -16,6 +18,9 @@ interface IssueType {
 export function PublicationCard({ issue }: { issue: IssueType }) {
     const navigate = useNavigate();
 
+    const date = formatDistance(issue.updated_at, new Date(), { addSuffix: true, locale: localeBr })
+
+
     function handleOnClick() {
         navigate(`/post/${issue.number}`)
     }
@@ -23,7 +28,7 @@ export function PublicationCard({ issue }: { issue: IssueType }) {
         <PostBody onClick={handleOnClick}>
             <header>
                 <h1>{issue.title}</h1>
-                <span>{issue.updated_at}</span>
+                <span>{date[0].toUpperCase() + date.substring(1)}</span>
             </header>
 
             <p>{issue.body}</p>

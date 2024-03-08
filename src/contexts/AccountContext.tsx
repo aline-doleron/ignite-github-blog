@@ -62,7 +62,7 @@ export function AccountProvider({ children }: AccountProviderProps) {
 
     useEffect(() => {
         getIssues()
-    }, [getAccountUserData])
+    }, [getAccountUserData, getIssues])
 
 
     return (

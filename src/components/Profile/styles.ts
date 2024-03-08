@@ -27,7 +27,23 @@ export const ProfileInfo = styled.div`
     justify-content: space-between;
 
 
+
 `
+
+export const GithubLink = styled.div`
+    display: flex;
+    font-size: 0.75rem;
+    line-height: 160%;
+    gap: 0.5rem;
+    align-items: center;
+    a, svg {
+        color: ${(props) => props.theme['blue']};
+        text-decoration: none;
+    }
+
+
+`
+
 export const ProfileTitle = styled.div`
     color: ${(props) => props.theme['base-title']};
     font-weight: bold;

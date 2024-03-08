@@ -3,6 +3,8 @@ import { PublicationContainer, PublicationData, PublicationInfo, PublicationNavi
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faArrowUpRightFromSquare, faCalendarDay, faChevronLeft, faComment } from "@fortawesome/free-solid-svg-icons";
+import { formatDistance } from 'date-fns'
+import localeBr from 'date-fns/locale/pt-BR';
 
 export interface PublicationType {
     title: string,
@@ -21,6 +23,8 @@ export function Publication({ data }: { data: PublicationType }) {
         navigate(`/`);
     }
 
+    const date = formatDistance(updatedAt, new Date(), { addSuffix: true, locale: localeBr })
+
     return (
         <PublicationContainer>
             <PublicationNavigation>
@@ -35,7 +39,7 @@ export function Publication({ data }: { data: PublicationType }) {
 
                 <PublicationData>
                     <span><FontAwesomeIcon icon={faGithub} />{login}</span>
-                    <span><FontAwesomeIcon icon={faCalendarDay} />{updatedAt}</span>
+                    <span><FontAwesomeIcon icon={faCalendarDay} />{date}</span>
                     <span><FontAwesomeIcon icon={faComment} />{comments} seguidores</span>
                 </PublicationData>
             </PublicationInfo>
